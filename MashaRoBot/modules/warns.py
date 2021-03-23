@@ -12,6 +12,7 @@ from MashaRoBot.modules.helper_funcs.chat_status import (
     user_admin,
     user_admin_no_reply,
     can_delete,
+    user_can_ban,
 )
 from MashaRoBot.modules.helper_funcs.extraction import (
     extract_text,
