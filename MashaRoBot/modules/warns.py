@@ -159,6 +159,7 @@ def warn(
 
 @run_async
 @user_admin_no_reply
+@user_can_ban
 @bot_admin
 @loggable
 def button(update: Update, context: CallbackContext) -> str:
@@ -280,6 +281,7 @@ def warns(update: Update, context: CallbackContext):
 
 # Dispatcher handler stop - do not async
 @user_admin
+@user_can_ban
 def add_warn_filter(update: Update, context: CallbackContext):
     chat: Optional[Chat] = update.effective_chat
     msg: Optional[Message] = update.effective_message
@@ -313,6 +315,7 @@ def add_warn_filter(update: Update, context: CallbackContext):
 
 
 @user_admin
+@user_can_ban
 def remove_warn_filter(update: Update, context: CallbackContext):
     chat: Optional[Chat] = update.effective_chat
     msg: Optional[Message] = update.effective_message
@@ -400,6 +403,7 @@ def reply_filter(update: Update, context: CallbackContext) -> str:
 
 @run_async
 @user_admin
+@user_can_ban
 @loggable
 def set_warn_limit(update: Update, context: CallbackContext) -> str:
     args = context.args
@@ -431,6 +435,7 @@ def set_warn_limit(update: Update, context: CallbackContext) -> str:
 
 @run_async
 @user_admin
+@user_can_ban
 def set_warn_strength(update: Update, context: CallbackContext):
     args = context.args
     chat: Optional[Chat] = update.effective_chat
