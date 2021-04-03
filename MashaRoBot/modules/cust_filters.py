@@ -49,6 +49,22 @@ ENUM_FUNC_MAP = {
     # sql.Types.VIDEO_NOTE.value: dispatcher.bot.send_video_note
 }
 
+from telethon import *
+from MashaRoBot.events import register
+from MashaRoBot import telethn as tbot
+
+async def can_change_info(message):
+    result = await tbot(
+        functions.channels.GetParticipantRequest(
+            channel=message.chat_id,
+            user_id=message.sender_id,
+        )
+    )
+    p = result.participant
+    return isinstance(p, types.ChannelParticipantCreator) or (
+        isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.change_info
+    )
+
 
 @run_async
 @typing_action
@@ -585,6 +601,9 @@ def get_exception(excp, filt, chat):
 def addnew_filter(update, chat_id, keyword, text, file_type, file_id, buttons):
     msg = update.effective_message
     totalfilt = sql.get_chat_triggers(chat_id)
+    if await not can_change_info(message=msg):
+        msg.reply_text("You are missing the following rights to use this command:CanChangeInfo")
+        return False
     if len(totalfilt) >= 150:  # Idk why i made this like function....
         msg.reply_text("This group has reached its max filters limit of 150.")
         return False
