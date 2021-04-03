@@ -603,7 +603,7 @@ def addnew_filter(update, chat_id, keyword, text, file_type, file_id, buttons):
     totalfilt = sql.get_chat_triggers(chat_id)
     if not can_change_info(message=event):
         msg.reply_text("You are missing the following rights to use this command:CanChangeInfo")
-        return False
+        return
     if len(totalfilt) >= 150:  # Idk why i made this like function....
         msg.reply_text("This group has reached its max filters limit of 150.")
         return False
