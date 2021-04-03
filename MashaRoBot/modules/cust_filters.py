@@ -601,7 +601,7 @@ def get_exception(excp, filt, chat):
 def addnew_filter(update, chat_id, keyword, text, file_type, file_id, buttons):
     msg = update.effective_message
     totalfilt = sql.get_chat_triggers(chat_id)
-    if not await can_change_info(message=msg):
+    if not can_change_info(message=event):
         msg.reply_text("You are missing the following rights to use this command:CanChangeInfo")
         return False
     if len(totalfilt) >= 150:  # Idk why i made this like function....
