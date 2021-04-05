@@ -1,11 +1,10 @@
-from  tbot
+from MashaRoBot import telethn as tbot
+from MashaRoBot.events import register
 import os
-from Evie.events import register
-from Evie.function import is_admin, can_change_info
 import asyncio
 import re
 from telethon.tl import types
-
+from telethon.tl import functions
 from telethon import utils, Button
 from telethon import events
 from Evie.modules.sql.filters_sql import (
@@ -20,7 +19,28 @@ TYPE_TEXT = 0
 TYPE_PHOTO = 1
 TYPE_DOCUMENT = 2
 
+async def is_admin(event, user):
+    try:
+        sed = await tbot.get_permissions(event.chat_id, user)
+        if sed.is_admin:
+            is_mod = True
+        else:
+            is_mod = False
+    except:
+        is_mod = False
+    return is_mod
 
+async def can_change_info(message):
+    result = await tbot(
+        functions.channels.GetParticipantRequest(
+            channel=message.chat_id,
+            user_id=message.sender_id,
+        )
+    )
+    p = result.participant
+    return isinstance(p, types.ChannelParticipantCreator) or (
+        isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.change_info
+    )
 
 @register(pattern="^/filter ?(.*)")
 async def save(event):
