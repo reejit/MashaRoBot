@@ -799,4 +799,4 @@ async def fstat(event):
  mex = event.reply(f"Checking fbans for {fname}...")
  uname, fbanlist = sql.get_user_fbanlist(str(user_id))
  if len(fbanlist) == 0:
-   return await mex.edit(f"User {fname} hasn't been banned in any chats due to fedbans."
+   return await mex.edit(f"User {fname} hasn't been banned in any chats due to fedbans.")
