@@ -79,6 +79,7 @@ def callbackquery(**args):
     return decorator
 
 
+
 def bot(**args):
     pattern = args.get("pattern")
     r_pattern = r"^[/]"
@@ -108,7 +109,22 @@ def bot(**args):
         except BaseException:
             pass
 
-    def decorator(func):                    
+    def decorator(func):
+        async def wrapper(check):
+            if check.edit_date:
+                return
+            if check.fwd_from:
+                return
+            if check.is_group or check.is_private:
+                pass
+            else:
+                print("i don't work in channels")
+                return
+            
+                          
+            
+            
+
         telethn.add_event_handler(wrapper, events.NewMessage(**args))
         return wrapper
 
