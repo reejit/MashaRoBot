@@ -10,7 +10,8 @@ from telethon import events
 from pymongo import MongoClient
 from MashaRoBot import MONGO_DB_URI
 from MashaRoBot import telethn
-
+FUN_LIST = []
+LOAD_PLUG = []
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["Alita"]
@@ -125,10 +126,6 @@ def bot(**args):
                   print("i don't work in small chats")
                   return
                           
-            users = gbanned.find({})
-            for c in users:
-                if check.sender_id == c["user"]:
-                    return
             try:
                 await func(check)
                 try:
