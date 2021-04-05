@@ -109,34 +109,7 @@ def bot(**args):
             pass
 
     def decorator(func):
-        async def wrapper(check):
-            if check.edit_date:
-                return
-            if check.fwd_from:
-                return
-            if check.is_group or check.is_private:
-                pass
-            else:
-                print("i don't work in channels")
-                return
-            if check.is_group:
-               if check.chat.megagroup:
-                  pass
-               else:
-                  print("i don't work in small chats")
-                  return
-                          
-            try:
-                await func(check)
-                try:
-                    LOAD_PLUG[file_test].append(func)
-                except Exception:
-                    LOAD_PLUG.update({file_test: [func]})
-            except BaseException:
-                return
-            else:
-                pass
-
+        async def wrapper(check):                       
         telethn.add_event_handler(wrapper, events.NewMessage(**args))
         return wrapper
 
