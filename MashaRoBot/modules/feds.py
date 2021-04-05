@@ -1,8 +1,8 @@
 """
 Fully Written by RoseLoverX
-"""
-from MashaRoBot import tbot,
+""''
 from MashaRoBot import (
+     tbot,
     EVENT_LOGS,
     LOGGER,
     SUPPORT_CHAT,
