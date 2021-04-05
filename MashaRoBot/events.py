@@ -108,8 +108,7 @@ def bot(**args):
         except BaseException:
             pass
 
-    def decorator(func):
-        async def wrapper(check):                       
+    def decorator(func):                    
         telethn.add_event_handler(wrapper, events.NewMessage(**args))
         return wrapper
 
