@@ -1,7 +1,17 @@
 """
 Fully Written by RoseLoverX
 """
-from MashaRoBot import tbot, OWNER_ID
+from MashaRoBot import tbot,
+from MashaRoBot import (
+    EVENT_LOGS,
+    LOGGER,
+    SUPPORT_CHAT,
+    OWNER_ID,
+    DRAGONS,
+    TIGERS,
+    WOLVES,
+    dispatcher,
+)
 import os, re, csv, json, time, uuid
 from MashaRoBot.function import is_admin
 from io import BytesIO
@@ -786,7 +796,7 @@ async def fstat(event):
    else:
       user_id = event.sender_id
       fname = event.sender.first_name
- mex = await event.reply(f"Checking fbans for {fname}...")
+ mex = event.reply(f"Checking fbans for {fname}...")
  uname, fbanlist = sql.get_user_fbanlist(str(user_id))
  if len(fbanlist) == 0:
    return await mex.edit(f"User {fname} hasn't been banned in any chats due to fedbans."
