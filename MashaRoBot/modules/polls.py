@@ -8,9 +8,9 @@ from MashaRoBot.events import register
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
-db = client["Cluster0"]
+db = client["Alita"]
 approved_users = db.approve
-dbb = client["Cluster0"]
+dbb = client["Alita"]
 poll_id = dbb.pollid
 
 
