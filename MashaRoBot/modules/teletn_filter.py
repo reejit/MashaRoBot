@@ -7,7 +7,7 @@ from telethon.tl import types
 from telethon.tl import functions
 from telethon import utils, Button
 from telethon import events
-from Evie.modules.sql.filters_sql import (
+from MashaRoBot.modules.sql.filters_sql import (
     add_filter,
     get_all_filters,
     remove_filter,
@@ -42,7 +42,7 @@ async def can_change_info(message):
         isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.change_info
     )
 
-@register(pattern="^/filter ?(.*)")
+@register(pattern="^/addfilter ?(.*)")
 async def save(event):
  if event.is_group:
       if not await is_admin(event, event.sender_id):
