@@ -42,7 +42,7 @@ async def can_change_info(message):
         isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.change_info
     )
 
-@register(pattern="^/addfilter ?(.*)")
+@register(pattern="^/filter ?(.*)")
 async def save(event):
  if event.is_group:
       if not await is_admin(event, event.sender_id):
