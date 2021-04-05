@@ -42,6 +42,65 @@ async def can_change_info(message):
         isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.change_info
     )
 
+@register(pattern=r"^/filter ?(.*)")
+async def save(event):
+ if event.is_group:
+      if not await is_admin(event, event.sender_id):
+        await event.reply("You need to be an admin to do this.")
+        return
+      if not await can_change_info(message=event):
+        await event.reply("You are missing the following rights to use this command: CanChangeInfo")
+        return
+ else:
+   return
+ if not event.reply_to_msg_id:
+     input = event.pattern_match.group(1)
+     if input:
+       arg = input.split(" ", 1)
+     if len(arg) == 2:
+      name = arg[0]
+      msg = arg[1]
+      snip = {"type": TYPE_TEXT, "text": msg}
+     else:
+      name = arg[0]
+      if not name:
+        await event.reply("You need to give the filter a name!")
+        return
+      await event.reply("You need to give the filter some content!")
+      return
+ else:
+      message = await event.get_reply_message()
+      name = event.pattern_match.group(1)
+      if not name:
+        await event.reply("You need to give the filter a name!")
+        return
+      if not message.media:
+          msg = message.text
+          snip = {"type": TYPE_TEXT, "text": msg}
+      else:
+          snip = {"type": TYPE_TEXT, "text": ""}
+          media = None
+          if isinstance(message.media, types.MessageMediaPhoto):
+             media = utils.get_input_photo(message.media.photo)
+             snip["type"] = TYPE_PHOTO
+          elif isinstance(message.media, types.MessageMediaDocument):
+             media = utils.get_input_document(message.media.document)
+             snip["type"] = TYPE_DOCUMENT
+          if media:
+             snip["id"] = media.id
+             snip["hash"] = media.access_hash
+             snip["fr"] = media.file_reference
+ add_filter(
+            event.chat_id,
+            name,
+            snip["text"],
+            snip["type"],
+            snip.get("id"),
+            snip.get("hash"),
+            snip.get("fr"),
+        )
+ await event.reply(f"Saved filter `{name}`")
+
 
 @register(pattern="^/listfilters$")
 async def on_snip_list(event):
