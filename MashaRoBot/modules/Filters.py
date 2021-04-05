@@ -1,5 +1,5 @@
 from MashaRoBot import telethn as tbot
-from MashaRoBot.events import register
+from MashaRoBot.events import bot as register
 import os
 import asyncio
 import re
